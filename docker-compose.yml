@@ -1,0 +1,23 @@
+version: "3"
+services:
+    frontend:
+        container_name: solidcad-frontend
+        restart: on-failure
+        build: ./frontend
+        stdin_open: true
+        tty: true
+        expose: 
+            - "3000"
+        ports: 
+            - "3000:3000"
+        depends_on: 
+            - backend
+        links:
+            - backend
+    backend:
+        container_name: solidcad-backend
+        build: ./backend
+        expose: 
+            - "8080"
+        ports: 
+            - "8080:8080"
