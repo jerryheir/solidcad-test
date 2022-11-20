@@ -23,6 +23,7 @@ export class ContactController {
         data: result,
       };
     } catch (err) {
+      Logger.log(JSON.stringify(err));
       throw new BadRequestException({
         status: 'error',
         data: err,
@@ -39,7 +40,7 @@ export class ContactController {
         message: 'Contact added successfully',
       };
     } catch (err) {
-      console.log('ERROR', err);
+      Logger.log(JSON.stringify(err));
       throw new BadRequestException({
         status: 'error',
         data: err,

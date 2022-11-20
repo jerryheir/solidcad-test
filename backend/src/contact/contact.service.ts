@@ -25,7 +25,8 @@ export class ContactService {
         text: `[TEST_EMAIL] \n \n ${payload.message} \n \n This is a test email.`,
       })
       .then(console.log, console.error);
-    return await this.contactRepository.save(payload);
+    await this.contactRepository.save(payload);
+    return true;
   }
 
   async getContacts() {

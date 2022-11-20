@@ -35,5 +35,5 @@ Now you should be able to open a browser tab to [http://localhost:3000](http://l
 
 ### IMPORTANT NOTES
 
-You can change the email of the sender 
+TO RUN TEST on the server, cd into the backend folder and run `yarn test:e2e` OR `yarn test`
 
