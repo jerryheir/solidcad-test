@@ -80,21 +80,25 @@ const App = () => {
         placeholder={"First Name"}
         value={formik.values.firstname}
         onChange={formik.handleChange("firstname")}
+        error={formik.errors.firstname}
       />
       <Input
         placeholder={"Last Name"}
         value={formik.values.lastname}
         onChange={formik.handleChange("lastname")}
+        error={formik.errors.lastname}
       />
       <Input
         placeholder={"Email"}
         value={formik.values.email}
         onChange={formik.handleChange("email")}
+        error={formik.errors.email}
       />
       <Input
         placeholder={"Message"}
         value={formik.values.email}
         onChange={formik.handleChange("message")}
+        error={formik.errors.message}
       />
       <PText>{message}</PText>
       <Button text={"COMPLETE"} onClick={formik.handleSubmit} />
