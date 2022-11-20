@@ -1,6 +1,6 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  ObjectIdColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
@@ -8,7 +8,7 @@ import {
 
 @Entity('contact')
 export class Contact {
-  @PrimaryGeneratedColumn()
+  @ObjectIdColumn()
   id: number;
   @Column()
   firstname: string;

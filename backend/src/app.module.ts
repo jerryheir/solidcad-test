@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Contact } from './contact/contact.entity';
 import { ContactModule } from './contact/contact.module';
 
 @Module({
@@ -12,7 +12,7 @@ import { ContactModule } from './contact/contact.module';
       useFactory: () => ({
         type: 'mongodb',
         url: 'mongodb+srv://jerry:GeniusOfFangshi@cluster0.wne0s.mongodb.net/?retryWrites=true&w=majority',
-        entities: [join(__dirname, '**/**.entity{.ts,.js}')],
+        entities: [Contact],
         synchronize: true,
         useNewUrlParser: true,
         logging: true,

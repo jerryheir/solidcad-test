@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MailtrapClient } from 'mailtrap';
 import { Repository } from 'typeorm';
@@ -24,7 +24,7 @@ export class ContactService {
         subject: '[TEST_EMAIL]',
         text: `[TEST_EMAIL] \n \n ${payload.message} \n \n This is a test email.`,
       })
-      .then(Logger.log, Logger.error);
+      .then(console.log, console.error);
     return await this.contactRepository.save(payload);
   }
 

@@ -20,6 +20,7 @@ const HeaderText = styled.p`
   font-weight: bold;
   align-self: center;
   text-align: center;
+  color: blue;
 `;
 
 const PText = styled.p`
@@ -27,18 +28,20 @@ const PText = styled.p`
   font-style: italic;
   align-self: center;
   text-align: center;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
   margin: 11px;
 `;
 
 const contactSchema = Yup.object().shape({
   firstname: Yup.string()
-    .required("Required")
+    .required("First name is required")
     .max(25, "Maximum of 25 characters"),
   lastname: Yup.string()
-    .required("Required")
+    .required("Last name is required")
     .max(25, "Maximum of 25 characters"),
   email: Yup.string()
-    .required("Email is Required")
+    .required("Email is required")
     .email("Invalid email")
     .max(50, "Maximum of 50 characters"),
   message: Yup.string()
@@ -58,24 +61,29 @@ const App = () => {
     onSubmit: async (values) => {
       setMessage("");
       try {
-        await fetch("http://localhost:8080/contact", {
+        const { status } = await fetch("http://localhost:8080/contact", {
           headers: {
             "Content-Type": "application/json",
           },
           method: "POST",
           body: JSON.stringify(values),
-        });
-        setMessage("Contact successfully added");
-        formik.resetForm();
+        }).then((res) => res.json());
+
+        if (status === "success") {
+          setMessage("Contact successfully added.");
+          formik.resetForm();
+        } else {
+          setMessage("Error: Something went wrong.")
+        }
       } catch (e) {
-        setMessage("Error: Network Connection failed");
+        setMessage("Error: Network Connection failed.");
       }
     },
     validationSchema: contactSchema,
   });
   return (
     <Container>
-      <HeaderText>Test App</HeaderText>
+      <HeaderText>CONTACT FORM</HeaderText>
       <Input
         placeholder={"First Name"}
         value={formik.values.firstname}
@@ -96,7 +104,7 @@ const App = () => {
       />
       <Input
         placeholder={"Message"}
-        value={formik.values.email}
+        value={formik.values.message}
         onChange={formik.handleChange("message")}
         error={formik.errors.message}
       />
