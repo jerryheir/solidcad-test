@@ -5,6 +5,7 @@ interface InputProps {
   placeholder?: string;
   value: string;
   onChange: (a: string) => void;
+  error?: string;
 }
 
 const CustomInput = styled.input`
@@ -13,16 +14,29 @@ const CustomInput = styled.input`
   width: 100%;
   border-radius: 4px;
   margin: 11px;
+  margin-bottom: 0px;
   background-color: #f1f1f1;
 `;
 
-const Input = ({ placeholder, value, onChange }: InputProps) => {
+const ErrorText = styled.p`
+  font-size: 10px;
+  font-style: italic;
+  margin-bottom: 11px;
+  color: ${({ error }: { error: string }) => error};
+`;
+
+const Input = ({ placeholder, value, onChange, error }: InputProps) => {
   return (
-    <CustomInput
-      placeholder={placeholder}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
+    <>
+      <CustomInput
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
+      <ErrorText error={error ? "red" : "transparent"}>
+        {error ? error : "-"}
+      </ErrorText>
+    </>
   );
 };
 
