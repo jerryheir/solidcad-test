@@ -26,7 +26,7 @@ export class ContactController {
       Logger.log(JSON.stringify(err));
       throw new BadRequestException({
         status: 'error',
-        data: err,
+        message: err,
       });
     }
   }
@@ -34,6 +34,13 @@ export class ContactController {
   @Post()
   async createContact(@Body() createContactDto: CreateContactDto) {
     try {
+      const { email, firstname, lastname, message } = createContactDto;
+      if (!email || !firstname || !lastname || !message) {
+        return {
+          status: 'error',
+          message: 'Invalid Request: Missing fields',
+        };
+      }
       await this.contactService.create(createContactDto);
       return {
         status: 'success',
@@ -43,7 +50,7 @@ export class ContactController {
       Logger.log(JSON.stringify(err));
       throw new BadRequestException({
         status: 'error',
-        data: err,
+        message: err,
       });
     }
   }

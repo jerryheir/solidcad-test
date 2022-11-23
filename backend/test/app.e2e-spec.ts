@@ -21,4 +21,27 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect('Hello, World 🎸 😂');
   });
+
+  it('/contact (POST) successful', () => {
+    return request(app.getHttpServer())
+      .post('/contact')
+      .send({
+        firstname: 'Jerry',
+        lastname: 'Heir',
+        email: 'nwaezejerry@gmail.com',
+        message: 'Hello World',
+      })
+      .expect({ status: 'success', message: 'Contact added successfully' });
+  });
+
+  it('/contact (POST) NO EMAIL', () => {
+    return request(app.getHttpServer())
+      .post('/contact')
+      .send({
+        firstname: 'Jerry',
+        lastname: 'Heir',
+        message: 'Hello World',
+      })
+      .expect({ status: 'error', message: 'Invalid Request: Missing fields' });
+  });
 });

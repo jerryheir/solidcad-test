@@ -6,3 +6,9 @@ test('renders contact form text', () => {
   const linkElement = screen.getByText(/contact form/i);
   expect(linkElement).toBeInTheDocument();
 });
+
+describe('Contact form', () => {
+  test('Validate Test Suite', () => {
+
+  })
+})
