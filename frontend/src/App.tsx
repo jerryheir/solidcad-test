@@ -5,6 +5,22 @@ import { useFormik } from "formik";
 import Button from "components/Button";
 import { Container, HeaderText, PText } from "styles";
 
+const contactSchema = Yup.object().shape({
+  firstname: Yup.string()
+    .required("First name is required")
+    .max(25, "Maximum of 25 characters"),
+  lastname: Yup.string()
+    .required("Last name is required")
+    .max(25, "Maximum of 25 characters"),
+  email: Yup.string()
+    .required("Email is required")
+    .email("Invalid email")
+    .max(50, "Maximum of 50 characters"),
+  message: Yup.string()
+    .required("Message is required.")
+    .max(500, "Maximum of 500 characters"),
+});
+
 const App = () => {
   const [message, setMessage] = useState("");
   const formik = useFormik({
@@ -54,6 +70,7 @@ const App = () => {
       />
       <Input
         placeholder={"Email"}
+        data-testid={"email"}
         value={formik.values.email}
         onChange={formik.handleChange("email")}
         error={formik.errors.email}
@@ -73,19 +90,3 @@ const App = () => {
 export default App;
 
 const BASE_URL = process.env.BASE_URL;
-
-const contactSchema = Yup.object().shape({
-  firstname: Yup.string()
-    .required("First name is required")
-    .max(25, "Maximum of 25 characters"),
-  lastname: Yup.string()
-    .required("Last name is required")
-    .max(25, "Maximum of 25 characters"),
-  email: Yup.string()
-    .required("Email is required")
-    .email("Invalid email")
-    .max(50, "Maximum of 50 characters"),
-  message: Yup.string()
-    .required("Message is required.")
-    .max(500, "Maximum of 500 characters"),
-});
