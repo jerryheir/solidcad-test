@@ -1,53 +1,9 @@
 import Input from "components/Input";
 import React, { useState } from "react";
-import styled from "styled-components";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Button from "components/Button";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  padding-top: 100px;
-`;
-
-const HeaderText = styled.p`
-  font-size: 24px;
-  font-weight: bold;
-  align-self: center;
-  text-align: center;
-  color: blue;
-`;
-
-const PText = styled.p`
-  font-size: 12px;
-  font-style: italic;
-  align-self: center;
-  text-align: center;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-  margin: 11px;
-`;
-
-const contactSchema = Yup.object().shape({
-  firstname: Yup.string()
-    .required("First name is required")
-    .max(25, "Maximum of 25 characters"),
-  lastname: Yup.string()
-    .required("Last name is required")
-    .max(25, "Maximum of 25 characters"),
-  email: Yup.string()
-    .required("Email is required")
-    .email("Invalid email")
-    .max(50, "Maximum of 50 characters"),
-  message: Yup.string()
-    .required("Message is required.")
-    .max(500, "Maximum of 500 characters"),
-});
+import { Container, HeaderText, PText } from "styles";
 
 const App = () => {
   const [message, setMessage] = useState("");
@@ -61,7 +17,7 @@ const App = () => {
     onSubmit: async (values) => {
       setMessage("");
       try {
-        const { status } = await fetch("http://localhost:8080/contact", {
+        const { status } = await fetch(`${BASE_URL}/contact`, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -115,3 +71,21 @@ const App = () => {
 };
 
 export default App;
+
+const BASE_URL = process.env.BASE_URL;
+
+const contactSchema = Yup.object().shape({
+  firstname: Yup.string()
+    .required("First name is required")
+    .max(25, "Maximum of 25 characters"),
+  lastname: Yup.string()
+    .required("Last name is required")
+    .max(25, "Maximum of 25 characters"),
+  email: Yup.string()
+    .required("Email is required")
+    .email("Invalid email")
+    .max(50, "Maximum of 50 characters"),
+  message: Yup.string()
+    .required("Message is required.")
+    .max(500, "Maximum of 500 characters"),
+});
